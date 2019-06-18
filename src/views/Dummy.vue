@@ -1,17 +1,16 @@
 <template>
 <div>
-  <h1>Template</h1>
+  <h1>Find players online during a period.</h1>
   <v-text-field
-            label="start"
+            label="Pick a start time..."
             v-model="startTime"
             @focus="triggerStartPicker"
-            slot="before"
           ></v-text-field>
   <datetime type="datetime" v-model="startTime" ref="startPicker">
 
   </datetime>
     <v-text-field
-            label="start"
+            label="Pick a stop time..."
             v-model="stopTime"
             @click="triggerStopPicker"
           ></v-text-field>
@@ -22,7 +21,7 @@
       color="secondary"
       @click="(loader = 'loading'), (sendRequest())"
     >
-      Get sessions!
+      Show me the players!
     </v-btn>
     <ul>
       <li v-for="session in this.nonNullItems" v-bind:key="session.id" >
