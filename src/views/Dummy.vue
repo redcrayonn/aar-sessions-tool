@@ -1,6 +1,6 @@
 <template>
 <div>
-  <h1>Find players online during a period.</h1>
+  <h1>Find players online during a</h1>
   <v-text-field
             label="Pick a start time..."
             v-model="startTime"
