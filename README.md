@@ -1,5 +1,10 @@
 # aar-sessions-tool
 
+## How to run:
+
+api: node /api/app.js
+front-end: npm run serve
+
 ## Project setup
 ```
 npm install
