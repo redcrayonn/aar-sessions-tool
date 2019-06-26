@@ -1,6 +1,13 @@
 <template>
 <div>
-  <h1>Find players online during a</h1>
+  <h1>Find players online during a given moment</h1>
+  <v-select
+          :items="servers"
+          v-model="selectedServer"
+          item-text="attributes.name"
+          label="Pick a server"
+          return-object
+        ></v-select>
   <v-text-field
             label="Pick a start time..."
             :value="startTime | formatDate"
@@ -43,7 +50,9 @@ export default {
           data: null,
           startTime: null,
           stopTime: null,
-          loading: null
+          loading: null,
+          servers: null,
+          selectedServer: null
       }
   },
   computed: {
@@ -60,8 +69,8 @@ export default {
       this.loading = true;
       axios.defaults.headers.common['Authorization'] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IjU3NzE0OTFlOWI4OWI1MTMiLCJpYXQiOjE1NjAwNzczODcsIm5iZiI6MTU2MDA3NzM4NywiaXNzIjoiaHR0cHM6Ly93d3cuYmF0dGxlbWV0cmljcy5jb20iLCJzdWIiOiJ1cm46dXNlcjo4MDQ3NyJ9.M-aJpkUKYda-7WCh6SPzlFy1mPYnvvcuGC5QhIszZQY'; // for all requests
       axios
-        .get(`https://api.battlemetrics.com/servers/1611557/relationships/sessions?start=${this.startTime}&stop=${this.stopTime}`)
-        .then(response => (this.data = response), (this.loading = false))
+        .get(`https://api.battlemetrics.com/servers/${this.selectedServer.id}/relationships/sessions?start=${this.startTime}&stop=${this.stopTime}`)
+        .then(response => {this.data = response; this.loading = false;} )
     },
     triggerStartPicker () {
       // Hacky way to fix BROKEASS timepicker
@@ -70,6 +79,12 @@ export default {
     triggerStopPicker() {
       // Hacky way to fix BROKEASS timepicker
       this.$nextTick(() => this.$refs.stopPicker.open(event));
+    },
+    getServers: function(){
+      axios.defaults.headers.common['Authorization'] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IjU3NzE0OTFlOWI4OWI1MTMiLCJpYXQiOjE1NjAwNzczODcsIm5iZiI6MTU2MDA3NzM4NywiaXNzIjoiaHR0cHM6Ly93d3cuYmF0dGxlbWV0cmljcy5jb20iLCJzdWIiOiJ1cm46dXNlcjo4MDQ3NyJ9.M-aJpkUKYda-7WCh6SPzlFy1mPYnvvcuGC5QhIszZQY'; // for all requests
+      axios
+        .get(`https://api.battlemetrics.com/servers?filter[rcon]=true`)
+        .then(response => {this.servers = response.data.data; this.loading = false; })
     }
   },
   watch: {
@@ -82,6 +97,9 @@ export default {
 
         this.loader = null
       }
+  },
+  mounted: function(){
+    this.getServers();
   }
 }
 </script>
