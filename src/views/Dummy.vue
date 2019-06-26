@@ -3,15 +3,15 @@
   <h1>Find players online during a</h1>
   <v-text-field
             label="Pick a start time..."
-            v-model="startTime"
+            :value="startTime | formatDate"
             @focus="triggerStartPicker"
           ></v-text-field>
   <datetime type="datetime" v-model="startTime" ref="startPicker">
 
   </datetime>
     <v-text-field
-            label="Pick a stop time..."
-            v-model="stopTime"
+            label="Pick an end time..."
+            :value="stopTime | formatDate"
             @click="triggerStopPicker"
           ></v-text-field>
   <datetime type="datetime" v-model="stopTime" ref="stopPicker"></datetime>
