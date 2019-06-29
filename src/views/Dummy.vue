@@ -104,6 +104,9 @@ export default {
   },
   mounted: function(){
     this.getServers();
+
+    // load cav users, will (most likely) be done when user submits form. If not yet done, will call again on submit in session component.
+    this.$store.dispatch('GetActiveUsers', null, {root:true});
   }
 }
 </script>
