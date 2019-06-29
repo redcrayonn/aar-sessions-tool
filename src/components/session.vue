@@ -1,10 +1,9 @@
 <template>
     <span>
-        {{cavUser.milpac_id}}
-        <a :href="'https://7cav.us/rosters/profile?uniqueid=' + cavUser.milpac_id">
+        <a v-if="dataFound" :href="'https://7cav.us/rosters/profile?uniqueid=' + cavUser.milpac_id">
             {{cavUser.rank_shorthand}}.{{cavUser.username}}
         </a>
-        
+        <span v-if="!dataFound">{{session.attributes.name}}</span>
     </span>
 </template>
 
@@ -25,11 +24,20 @@ export default {
       session: null
   },
   computed: {
-      nonNullItems: function() {
+    nonNullItems: function() {
       if(this.cavUser !== null)
       {
         return this.cavUser;
       }
+    },
+    dataFound: function(){
+        if(this.cavUser != null && this.cavUser.milpac_id != null && this.cavUser.username != null)
+        {
+            return true;
+        }
+        else{
+            return false;
+        }
     }
   },
   methods: {
