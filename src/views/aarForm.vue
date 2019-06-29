@@ -115,5 +115,9 @@ export default {
 .vdatetime-input {
   display: none;
 }
+
+a:active, a{
+  color: rgb(255, 230, 0) !important;
+}
 </style>
 
