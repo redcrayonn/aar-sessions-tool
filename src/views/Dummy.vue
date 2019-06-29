@@ -32,7 +32,7 @@
     </v-btn>
     <ul>
       <li v-for="session in this.nonNullItems" v-bind:key="session.id" >
-        <span>{{session.id}}</span>
+        <session :session="session"></session>
       </li>
     </ul>
   </div>
@@ -41,6 +41,7 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
+import session from '@/components/session.vue'
 
 export default {
   name: 'home',
@@ -54,6 +55,9 @@ export default {
           servers: null,
           selectedServer: null
       }
+  },
+  components: {
+    session
   },
   computed: {
     nonNullItems: function() {
