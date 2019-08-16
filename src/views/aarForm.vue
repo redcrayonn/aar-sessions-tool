@@ -61,9 +61,9 @@ export default {
   },
   computed: {
     nonNullItems: function() {
-      if(this.data && this.data.data && this.data.data.data)
+      if(this.data && this.data.data)
       {
-        return this.data.data.data;
+        return this.data.data;
       }
     }
   },
