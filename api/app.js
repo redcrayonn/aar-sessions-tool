@@ -26,11 +26,6 @@ app.get('/bm/:serverid/sessions', (req, res) => {
     }
 )
 
-// app.options('/bm/:serverid/sessions', (req, res) => {
-//     // res.setHeader('Access-Control-Allow-Origin', '*');
-//     res.sendStatus(200);
-// })
-
 // Get active cav users
 app.get('/cav/active', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
@@ -43,10 +38,16 @@ app.get('/cav/active', (req, res) => {
     }
 )
 
-// app.options('/cav/active', (req, res) => {
-//     // res.setHeader('Access-Control-Allow-Origin', '*');
-//     res.sendStatus(200);
-// })
+// Get cav servers
+app.get('/bm/servers', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    // res.setHeader('Access-Control-Allow-Origin', '*');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${bmToken}`; // for all requests
+    axios
+      .get(`https://api.battlemetrics.com/servers?filter[rcon]=true`)
+      .then(response => { res.send(response.data.data); console.log(response);})
+      .catch(response => { console.log('failure: ' + response) });
+})
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 

@@ -43,6 +43,8 @@
 // import HelloWorld from '@/components/HelloWorld.vue'
 import session from '@/components/session.vue'
 
+const apiUrl = process.env.VUE_APP_API_MAIN;
+
 export default {
   name: 'home',
   data () {
@@ -73,7 +75,7 @@ export default {
       this.loading = true;
       // axios.defaults.headers.common['Authorization'] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IjU3NzE0OTFlOWI4OWI1MTMiLCJpYXQiOjE1NjAwNzczODcsIm5iZiI6MTU2MDA3NzM4NywiaXNzIjoiaHR0cHM6Ly93d3cuYmF0dGxlbWV0cmljcy5jb20iLCJzdWIiOiJ1cm46dXNlcjo4MDQ3NyJ9.M-aJpkUKYda-7WCh6SPzlFy1mPYnvvcuGC5QhIszZQY'; // for all requests
       axios
-        .get(`http://localhost:3000/bm/${this.selectedServer.id}/sessions?start=${this.startTime}&stop=${this.stopTime}`)
+        .get(`${apiUrl}/bm/${this.selectedServer.id}/sessions?start=${this.startTime}&stop=${this.stopTime}`)
         .then(response => {this.data = response; this.loading = false;} )
     },
     triggerStartPicker () {
@@ -87,8 +89,8 @@ export default {
     getServers: function(){
       axios.defaults.headers.common['Authorization'] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IjU3NzE0OTFlOWI4OWI1MTMiLCJpYXQiOjE1NjAwNzczODcsIm5iZiI6MTU2MDA3NzM4NywiaXNzIjoiaHR0cHM6Ly93d3cuYmF0dGxlbWV0cmljcy5jb20iLCJzdWIiOiJ1cm46dXNlcjo4MDQ3NyJ9.M-aJpkUKYda-7WCh6SPzlFy1mPYnvvcuGC5QhIszZQY'; // for all requests
       axios
-        .get(`https://api.battlemetrics.com/servers?filter[rcon]=true`)
-        .then(response => {this.servers = response.data.data; this.loading = false; })
+        .get(`${apiUrl}/bm/servers`)
+        .then(response => {this.servers = response.data; this.loading = false; console.log(response);})
     }
   },
   watch: {

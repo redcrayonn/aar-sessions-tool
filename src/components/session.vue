@@ -1,6 +1,6 @@
 <template>
     <span>
-        <a v-if="dataFound" :href="'https://7cav.us/rosters/profile?uniqueid=' + cavUser.milpac_id">
+        <a v-if="dataFound" :href="'https://7cav.us/rosters/profile?uniqueid=' + cavUser.milpac_id" target="_blank">
             {{cavUser.rank_shorthand}}.{{cavUser.username}}
         </a>
         <span v-if="!dataFound">{{session.attributes.name}}</span>
